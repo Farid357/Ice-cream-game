@@ -9,7 +9,7 @@ namespace IceCream.GameLogic
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out IDamagable damagable))
+            if (other.TryGetComponent(out IceCreamHealth damagable))
             {
                 damagable.ApplyDamage(Damage);
                 gameObject.SetActive(false);
