@@ -9,7 +9,7 @@ namespace IceCream.GameLogic
     {
         [SerializeField] private Vector3 _smallSize;
 
-        protected override void PlayChangeHealthFeedback() => ChangeSize(_smallSize, 0.5f);
+        protected override void PlayChangeHealthFeedback(float health) => ChangeSize(_smallSize, 0.5f);
 
         private async void ChangeSize(Vector3 smallSize, float duration)
         {
