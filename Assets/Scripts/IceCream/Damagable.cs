@@ -8,10 +8,14 @@ namespace IceCream.GameLogic
         public event Action OnEnded;
         public event Action<int> OnChanged;
         [SerializeField] private int _health;
+        [SerializeField] private bool _needHealthReload;
+        private int _maxHealth;
 
-        private int _newHealth;
-
-        private void OnEnable() => _health = _newHealth;
+        private void OnEnable()
+        {
+            if (_needHealthReload)
+                _health = _maxHealth;
+        }
 
         public void ApplyDamage(in int damage)
         {
@@ -33,7 +37,7 @@ namespace IceCream.GameLogic
         {
             if (health <= 0) throw new ArgumentOutOfRangeException(nameof(health));
             _health = health;
-            _newHealth = health;
+            _maxHealth = health;
         }
 
         protected abstract void PlayChangeHealthFeedback();

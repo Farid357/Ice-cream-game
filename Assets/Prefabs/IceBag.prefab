@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 1
+  _needHealthReload: 1
   _smallSize: {x: 0.0615712, y: 0.07508945, z: 1}
 --- !u!114 &-4272575869742486993
 MonoBehaviour:

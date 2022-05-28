@@ -9,7 +9,7 @@ namespace IceCream.GameLogic
         [SerializeField] private IceCreamHealth _health;
         [SerializeField] private Scrollbar _bar;
         [SerializeField] private float _changeColorDelay = 0.35f;
-        private float[] _sizes = new[] { 0f, 0.5f, 0.75f };
+        private float[] _sizes = new[] { 0f, 0.5f, 0.75f, 0.9f };
 
         private void OnEnable() => _health.OnChanged += SetBarSize;
 
