@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using IceCream.Tools;
 using System.Collections;
+using Zenject;
 
 namespace IceCream.GameLogic
 {
@@ -11,10 +12,14 @@ namespace IceCream.GameLogic
         [SerializeField] private int _startCount = 3;
         [SerializeField] private float _spawnDelay = 0.5f;
 
-        private readonly ObjectsPool<T> _pool = new();
+        private ObjectsPool<T> _pool;
+
+        [Inject]
+        public void Init(ObjectsPool<T> pool) => _pool = pool;
 
         private void Start()
         {
+            if (_parent == null || _prefab == null) Debug.Log("kd");
             _pool.Add(_startCount, _prefab, _parent);
             StartCoroutine(Spawn());
         }

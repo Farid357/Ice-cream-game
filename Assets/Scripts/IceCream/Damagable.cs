@@ -6,12 +6,12 @@ namespace IceCream.GameLogic
     public abstract class Damagable : MonoBehaviour
     {
         public event Action OnEnded;
-        public event Action<float> OnChanged;
+        public Action<float> OnChanged;
         [SerializeField] private float _health;
         [SerializeField] private bool _needHealthReload;
         private float _maxHealth;
 
-        public float Health => _health;
+        public float Health { get => _health; protected set => _health = value; }
 
         private void OnEnable()
         {
@@ -25,7 +25,7 @@ namespace IceCream.GameLogic
             _health -= damage;
             TryDie();
             OnChanged?.Invoke(_health);
-            PlayChangeHealthFeedback(damage);
+            PlayChangeHealthFeedback();
         }
         private void TryDie()
         {
@@ -42,6 +42,6 @@ namespace IceCream.GameLogic
             _maxHealth = health;
         }
 
-        protected abstract void PlayChangeHealthFeedback(float damage);
+        protected abstract void PlayChangeHealthFeedback();
     }
 }

@@ -20,8 +20,8 @@ namespace IceCream.Tools
                 _count = count;
                 for (int i = 0; i < count; i++)
                 {
-                    //_container.InstantiatePrefab(prefab, parent);
-                    var createObject = Object.Instantiate(prefab, parent);
+                    var createObject = _container.InstantiatePrefab(prefab, parent);
+                    //var createObject = Object.Instantiate(prefab, parent);
                     createObject.gameObject.SetActive(false);
                     _objects.Add(createObject.GetComponent<T>());
                 }

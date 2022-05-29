@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -10,10 +11,7 @@ namespace IceCream.GameLogic
         [SerializeField] private IceCreamHealth _health;
         [SerializeField] private float _takeHealthCount = 0.1f;
 
-        private void Start()
-        {
-            Fry();
-        }
+        private void Start() => Fry();
 
         private async void Fry()
         {

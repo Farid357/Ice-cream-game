@@ -11,7 +11,7 @@ namespace IceCream.GameLogic
 
         public void Init()
         {
-            var randomHealth = Random.Range(1, 4);
+            var randomHealth = Random.Range(1, 3);
             _health.SetHealth(randomHealth);
         }
     }

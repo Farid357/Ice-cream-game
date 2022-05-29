@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 
 namespace IceCream.GameLogic
 {
@@ -8,8 +8,17 @@ namespace IceCream.GameLogic
     public sealed class IceBagHealthView : Damagable
     {
         [SerializeField] private Vector3 _smallSize;
+        [SerializeField] private float _healCount = 0.5f;
+        private IceCreamHealth _iceCream;
 
-        protected override void PlayChangeHealthFeedback(float health) => ChangeSize(_smallSize, 0.5f);
+        [Inject]
+        public void Init(IceCreamHealth iceCream) => _iceCream = iceCream;
+
+        protected override void PlayChangeHealthFeedback()
+        {
+            _iceCream.Heal(_healCount);
+            ChangeSize(_smallSize, 0.5f);
+        }
 
         private async void ChangeSize(Vector3 smallSize, float duration)
         {
@@ -23,7 +32,7 @@ namespace IceCream.GameLogic
                 nextValue = Vector3.Lerp(smallSize, startScale, elapsed / duration);
                 transform.localScale = nextValue;
                 elapsed += Time.deltaTime;
-                await System.Threading.Tasks.Task.Yield();
+                await Task.Yield();
             }
         }
     }

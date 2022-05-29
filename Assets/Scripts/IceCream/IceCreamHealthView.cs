@@ -6,19 +6,22 @@ namespace IceCream.GameLogic
 {
     public sealed class IceCreamHealthView : MonoBehaviour
     {
-        [SerializeField] private IceCreamHealth _health;
+        [SerializeField] private IceCreamHealth _iceCreamHealth;
         [SerializeField] private Scrollbar _bar;
         [SerializeField] private float _changeColorDelay = 0.35f;
+        private float _health;
 
-        private void OnEnable() => _health.OnChanged += SetBarSize;
+        private void OnEnable() => _iceCreamHealth.OnChanged += SetBarSize;
 
-        private void OnDestroy() => _health.OnChanged -= SetBarSize;
+        private void OnDestroy() => _iceCreamHealth.OnChanged -= SetBarSize;
 
         private void SetBarSize(float health)
         {
-            health *= 0.35f;
             ChangeBarSize(_bar.size, health, 0.4f);
-            ChangeBarColor();
+
+            if (_iceCreamHealth.Health < _health)
+                ChangeBarColor();
+            _health = health;
         }
 
         private async void ChangeBarSize(float startValue, float endValue, float duration)
