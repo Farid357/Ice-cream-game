@@ -8,28 +8,35 @@ namespace IceCream.GameLogic
     public abstract class Factory<T> : MonoBehaviour where T : MonoBehaviour
     {
         [SerializeField, Tooltip("Can be null")] private Transform _parent;
-        [SerializeField] private T _prefab;
+        [SerializeField] private T[] _prefabs;
         [SerializeField] private int _startCount = 3;
         [SerializeField] private float _spawnDelay = 0.5f;
 
         private ObjectsPool<T> _pool;
+        protected T[] Prefabs => _prefabs;
 
         [Inject]
         public void Init(ObjectsPool<T> pool) => _pool = pool;
 
         private void Start()
         {
-            if (_parent == null || _prefab == null) Debug.Log("kd");
-            _pool.Add(_startCount, _prefab, _parent);
+            foreach (var prefab in _prefabs)
+            {
+                _pool.Add(_startCount, prefab, _parent);
+            }
             StartCoroutine(Spawn());
         }
+
+        public void StartSpawn() => StartCoroutine(Spawn());
+
         private IEnumerator Spawn()
         {
             var wait = new WaitForSeconds(_spawnDelay);
             while (true)
             {
                 yield return wait;
-                var spawnObject = _pool.Get(_prefab);
+                var prefab = GetPrefab();
+                var spawnObject = _pool.Get(prefab);
                 spawnObject.gameObject.SetActive(true);
                 spawnObject.transform.position = GetNextPoint();
                 if (spawnObject.TryGetComponent(out IInitializer initializer))
@@ -42,6 +49,7 @@ namespace IceCream.GameLogic
                 }
             }
         }
+        public abstract T GetPrefab();
         public abstract Vector3 GetNextPoint();
     }
 }

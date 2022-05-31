@@ -12,5 +12,7 @@ namespace IceCream.GameLogic
             var randomPoint = _spawnPoints[randomIndex];
             return randomPoint.position;
         }
+
+        public override IceBagMovement GetPrefab() => Prefabs[0];
     }
 }
