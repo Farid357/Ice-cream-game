@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace IceCream.GameLogic
@@ -5,7 +6,8 @@ namespace IceCream.GameLogic
     [RequireComponent(typeof(BoxCollider))]
     public sealed class IceCreamHealth : Damagable
     {
-        [SerializeField, Tooltip("Have to be from highest to smallest")] private GameObject[] _layers;
+        public event Action<Layer> OnRemoved;
+        [SerializeField, Tooltip("Have to be from smallest to highest")] private Layer[] _layers;
         private int _layerIndex;
         private float _healthMax;
 
@@ -25,7 +27,11 @@ namespace IceCream.GameLogic
             }
         }
 
-        protected override void PlayChangeHealthFeedback() => SetEnableLayer(1, false);
+        protected override void PlayChangeHealthFeedback()
+        {
+            SetEnableLayer(1, false);
+            OnRemoved?.Invoke(_layers[_layerIndex]);
+        }
 
         private void AddLayer()
         {
@@ -37,7 +43,7 @@ namespace IceCream.GameLogic
         {
             _layerIndex -= decreaseCount;
             if (_layerIndex >= 0)
-                _layers[_layerIndex].SetActive(isActive);
+                _layers[_layerIndex].gameObject.SetActive(isActive);
         }
     }
 }

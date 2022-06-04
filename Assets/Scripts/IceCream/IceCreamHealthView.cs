@@ -1,50 +1,39 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace IceCream.GameLogic
 {
     public sealed class IceCreamHealthView : MonoBehaviour
     {
         [SerializeField] private IceCreamHealth _iceCreamHealth;
-        [SerializeField] private Scrollbar _bar;
-        [SerializeField] private float _changeColorDelay = 0.35f;
+        [SerializeField] private HealthBar _bar;
         private float _health;
 
-        private void OnEnable() => _iceCreamHealth.OnChanged += SetBarSize;
+        private void OnEnable()
+        {
+            _iceCreamHealth.OnChanged += SetBarSize;
+            _iceCreamHealth.OnRemoved += StartChangeLayerColor;
+        }
 
-        private void OnDestroy() => _iceCreamHealth.OnChanged -= SetBarSize;
+        private void OnDestroy()
+        {
+            _iceCreamHealth.OnChanged -= SetBarSize;
+            _iceCreamHealth.OnRemoved -= StartChangeLayerColor;
+        }
 
         private void SetBarSize(float health)
         {
-            ChangeBarSize(_bar.size, health, 0.4f);
+            _bar.ChangeBarSize(endValue: health, 0.4f);
 
             if (_iceCreamHealth.Health < _health)
-                ChangeBarColor();
+               _bar.ChangeBarColor();
             _health = health;
         }
 
-        private async void ChangeBarSize(float startValue, float endValue, float duration)
+        private void StartChangeLayerColor(Layer layer)
         {
-            float elapsed = 0;
-            float nextValue;
-
-            while (elapsed < duration)
-            {
-                nextValue = Mathf.Lerp(startValue, endValue, elapsed / duration);
-                _bar.size = nextValue;
-                elapsed += Time.deltaTime;
-                await Task.Yield();
-            }
-        }
-
-        private async void ChangeBarColor()
-        {
-            var image = _bar.handleRect.GetComponent<Image>();
-            var startColor = image.color;
-            image.color = Color.white;
-            await Task.Delay(System.TimeSpan.FromSeconds(_changeColorDelay));
-            image.color = startColor;
+            Task task = null;
+            task.Change(0f, 0.8f, (nextValue) => layer.SetAlpha(nextValue), 1);
         }
     }
 }
