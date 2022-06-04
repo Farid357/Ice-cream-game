@@ -136,6 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d6c2e8420abee4e90588749d1db1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxGoldCount: 6
+  _minGoldCount: 2
 --- !u!114 &-9089350445269257552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,10 +163,10 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 1
     - serializedVersion: 3
-      time: 13.604523
-      value: 28.9683
-      inSlope: 1.6544085
-      outSlope: 1.6544085
+      time: 29.885498
+      value: 32.58773
+      inSlope: 0.96312314
+      outSlope: 0.96312314
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334

@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace IceCream.GameLogic
 {
@@ -26,14 +25,13 @@ namespace IceCream.GameLogic
             _bar.ChangeBarSize(endValue: health, 0.4f);
 
             if (_iceCreamHealth.Health < _health)
-               _bar.ChangeBarColor();
+                _bar.ChangeBarColor();
             _health = health;
         }
 
         private void StartChangeLayerColor(Layer layer)
         {
-            Task task = null;
-            task.Change(0f, 0.8f, (nextValue) => layer.SetAlpha(nextValue), 1);
+            this.StartChange(0f, 0.8f, (nextValue) => layer.SetAlpha(nextValue), 1);
         }
     }
 }

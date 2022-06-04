@@ -6,6 +6,9 @@ namespace IceCream.GameLogic
     [RequireComponent(typeof(GoldPresent))]
     public sealed class GoldPresentInitializer : MonoBehaviour, IInitializer
     {
+        [SerializeField] private int _maxGoldCount = 6;
+        [SerializeField] private int _minGoldCount = 2;
+
         private GoldPresentsCollector _collector;
         private GoldPresent _goldPresent;
 
@@ -17,7 +20,8 @@ namespace IceCream.GameLogic
         public void Init()
         {
             if (_goldPresent == null) throw new System.ArgumentNullException(nameof(_goldPresent));
-            _goldPresent.Init(_collector);
+            var goldCount = Random.Range(_minGoldCount, _maxGoldCount);
+            _goldPresent.Init(_collector, goldCount);
         }
     }
 }

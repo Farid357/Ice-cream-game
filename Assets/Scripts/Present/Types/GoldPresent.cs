@@ -2,14 +2,19 @@
 {
     public sealed class GoldPresent : Present
     {
-        private const int GoldCount = 1;
+        private int _goldCount;
         private GoldPresentsCollector _collector;
 
         protected override void PlayApplyFeedBack()
         {
-            _collector.Add(GoldCount);
+            _collector.Add(_goldCount);
         }
 
-        public void Init(GoldPresentsCollector collector) => _collector = collector;
+        public void Init(GoldPresentsCollector collector, int goldCount)
+        {
+            if (goldCount == 0) throw new System.ArgumentOutOfRangeException(nameof(goldCount));
+            _collector = collector;
+            _goldCount = goldCount;
+        }
     }
 }

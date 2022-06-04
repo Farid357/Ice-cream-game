@@ -13,8 +13,8 @@ namespace IceCream.GameLogic
         {
             if (startValue == 0.1f) startValue = _bar.size;
 
-            Task task = null;
-            task.Change(endValue, duration, (nextValue) => _bar.size = nextValue, startValue);
+            if (gameObject.activeInHierarchy)
+                this.StartChange(endValue, duration, (nextValue) => _bar.size = nextValue, startValue);
         }
 
         public async void ChangeBarColor()
