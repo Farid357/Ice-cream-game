@@ -7,8 +7,13 @@ namespace IceCream.App
     {
         [SerializeField] private Button _pause;
         [SerializeField] private GameObject _pausePanel;
+        [SerializeField] private Button _restart;
 
-        private void Awake() => _pause.onClick.AddListener(Pause);
+        private void Awake()
+        {
+            _pause.onClick.AddListener(Pause);
+            _restart.onClick.AddListener(() => Time.timeScale = 1);
+        }
 
         private void Pause()
         {

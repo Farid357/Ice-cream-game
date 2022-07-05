@@ -1396,6 +1396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pause: {fileID: 2137821359}
   _pausePanel: {fileID: 1651877698}
+  _restart: {fileID: 2013589230}
 --- !u!1 &197390175
 GameObject:
   m_ObjectHideFlags: 0
