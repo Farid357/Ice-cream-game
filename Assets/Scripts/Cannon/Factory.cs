@@ -18,7 +18,7 @@ namespace IceCream.GameLogic
         [Inject]
         public void Init(ObjectsPool<T> pool) => _pool = pool;
 
-        private void Start()
+        private void Awake()
         {
             foreach (var prefab in _prefabs)
             {
@@ -49,7 +49,10 @@ namespace IceCream.GameLogic
                 }
             }
         }
-        public abstract T GetPrefab();
-        public abstract Vector3 GetNextPoint();
+
+        protected abstract T GetPrefab();
+
+        protected abstract Vector3 GetNextPoint();
+
     }
 }

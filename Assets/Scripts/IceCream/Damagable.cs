@@ -11,7 +11,9 @@ namespace IceCream.GameLogic
         [SerializeField] private bool _needHealthReload;
         private float _maxHealth;
 
-        public float Health { get => _health; protected set => _health = value; }
+        public float Health => _health;
+
+        private void Awake() => _maxHealth = _health;
 
         private void OnEnable()
         {
@@ -27,6 +29,14 @@ namespace IceCream.GameLogic
             OnChanged?.Invoke(_health);
             PlayChangeHealthFeedback();
         }
+
+        public void Init(float health)
+        {
+            if (health <= 0) throw new ArgumentOutOfRangeException(nameof(health));
+            _health = health;
+            _maxHealth = _health;
+        }
+
         private void TryDie()
         {
             if (_health <= 0)
@@ -35,12 +45,18 @@ namespace IceCream.GameLogic
                 gameObject.SetActive(false);
             }
         }
-        public void SetHealth(float health)
+
+        public void TryHeal(float health)
         {
-            if (health <= 0) throw new ArgumentOutOfRangeException(nameof(health));
-            _health = health;
-            _maxHealth = health;
+            if (_health + health <= _maxHealth)
+            {
+                _health += health;
+                OnChanged.Invoke(Health);
+                PlayHealFeedBack();
+            }
         }
+
+        protected virtual void PlayHealFeedBack() { }
 
         protected abstract void PlayChangeHealthFeedback();
     }

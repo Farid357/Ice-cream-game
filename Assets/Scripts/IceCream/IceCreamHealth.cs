@@ -9,23 +9,8 @@ namespace IceCream.GameLogic
         public event Action<Layer> OnRemoved;
         [SerializeField, Tooltip("Have to be from smallest to highest")] private Layer[] _layers;
         private int _layerIndex;
-        private float _healthMax;
 
-        private void Start()
-        {
-            _layerIndex = _layers.Length;
-            _healthMax = Health;
-        }
-
-        public void Heal(float health)
-        {
-            if (Health + health <= _healthMax)
-            {
-                Health += health;
-                OnChanged.Invoke(Health);
-                AddLayer();
-            }
-        }
+        private void Start() => _layerIndex = _layers.Length;
 
         protected override void PlayChangeHealthFeedback()
         {
@@ -33,6 +18,8 @@ namespace IceCream.GameLogic
             OnRemoved?.Invoke(_layers[_layerIndex]);
         }
 
+        protected override void PlayHealFeedBack() => AddLayer();
+        
         private void AddLayer()
         {
             SetEnableLayer(0, true);

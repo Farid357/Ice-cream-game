@@ -16,20 +16,19 @@ namespace IceCream.GameLogic
 
         protected override void PlayChangeHealthFeedback()
         {
-            _iceCream.Heal(_healCount);
+            _iceCream.TryHeal(_healCount);
             ChangeSize(_smallSize, 0.5f);
         }
 
         private async void ChangeSize(Vector3 smallSize, float duration)
         {
-            Vector3 startScale = transform.localScale;
+            var startScale = transform.localScale;
             transform.localScale = smallSize;
             float elapsed = 0;
-            Vector3 nextValue = Vector3.zero;
 
             while (elapsed < duration)
             {
-                nextValue = Vector3.Lerp(smallSize, startScale, elapsed / duration);
+                var nextValue = Vector3.Lerp(smallSize, startScale, elapsed / duration);
                 transform.localScale = nextValue;
                 elapsed += Time.deltaTime;
                 await Task.Yield();

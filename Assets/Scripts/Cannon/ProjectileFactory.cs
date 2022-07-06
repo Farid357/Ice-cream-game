@@ -6,8 +6,8 @@ namespace IceCream.GameLogic
     {
         [SerializeField] private Transform _spawnPoint;
 
-        public override Vector3 GetNextPoint() => _spawnPoint.position;
+        protected override Vector3 GetNextPoint() => _spawnPoint.position;
 
-        public override ProjectileMovement GetPrefab() => Prefabs[0];
+        protected override ProjectileMovement GetPrefab() => Prefabs[0];
     }
 }

@@ -6,13 +6,14 @@ namespace IceCream.GameLogic
     {
         [SerializeField] private Transform[] _spawnPoints;
 
-        public override Vector3 GetNextPoint()
+        protected override Vector3 GetNextPoint()
         {
             var randomIndex = Random.Range(0, _spawnPoints.Length);
             var randomPoint = _spawnPoints[randomIndex];
             return randomPoint.position;
         }
 
-        public override IceBagMovement GetPrefab() => Prefabs[0];
+        protected override IceBagMovement GetPrefab() => Prefabs[0];
+
     }
 }

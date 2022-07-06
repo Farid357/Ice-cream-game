@@ -11,15 +11,16 @@ namespace IceCream.GameLogic
 
         private void Awake() => _timer.Start();
 
-        public override Vector3 GetNextPoint() => _spawnPoint.position;
+        protected override Vector3 GetNextPoint() => _spawnPoint.position;
 
-        public override Present GetPrefab()
+        protected override Present GetPrefab()
         {
             List<float> chances = new();
             for (int i = 0; i < Prefabs.Length - 1; i++)
             {
                 chances.Add(Prefabs[i].ChanceCurve.Evaluate(_timer.PassedTime));
             }
+
             float chance = Random.Range(0, chances.Sum());
             float value = 0;
 
