@@ -275,11 +275,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parent: {fileID: 679883}
   _prefabs:
+  - {fileID: 5934017038487322115, guid: 9f44cf0ef77a09c4f904b894ae87e9db, type: 3}
   - {fileID: -9089350445269257552, guid: 9ea4b20c02f64cb408fefea2eae3bee7, type: 3}
   - {fileID: -7658832005644566242, guid: 7bd0cd5d827432f49917b50d63d7cc87, type: 3}
   - {fileID: -7658832005644566242, guid: 7bd0cd5d827432f49917b50d63d7cc87, type: 3}
   _startCount: 5
-  _spawnDelay: 25
+  _spawnDelay: 5
   _spawnPoint: {fileID: 646182756}
 --- !u!4 &679883
 Transform:
@@ -1951,6 +1952,10 @@ MonoBehaviour:
   _panel: {fileID: 1483897522}
   _catcher: {fileID: 2043496442}
   _score: {fileID: 1025652768}
+  _projectileFactories:
+  - {fileID: 348153166333042264}
+  - {fileID: 1680738693}
+  - {fileID: 2099393202}
 --- !u!114 &368450076
 MonoBehaviour:
   m_ObjectHideFlags: 0

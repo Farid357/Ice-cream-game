@@ -13,6 +13,8 @@ namespace IceCream.GameLogic
         [SerializeField] private float _spawnDelay = 0.5f;
 
         private ObjectsPool<T> _pool;
+        private bool _canSpawning = true;
+
         protected T[] Prefabs => _prefabs;
 
         [Inject]
@@ -27,12 +29,14 @@ namespace IceCream.GameLogic
             StartCoroutine(Spawn());
         }
 
-        public void StartSpawn() => StartCoroutine(Spawn());
+        public void StartSpawn() => _canSpawning = true;
+
+        public void StopSpawn() => _canSpawning = false;
 
         private IEnumerator Spawn()
         {
             var wait = new WaitForSeconds(_spawnDelay);
-            while (true)
+            while (_canSpawning)
             {
                 yield return wait;
                 var prefab = GetPrefab();

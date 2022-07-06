@@ -15,16 +15,13 @@ namespace IceCream.Tools
 
         public void Add(int count, T prefab, Transform parent = null)
         {
-            if (!_objects.Contains(prefab))
-            {    
-                _count = count;
-                for (int i = 0; i < count; i++)
-                {
-                    var createObject = _container.InstantiatePrefab(prefab, parent);
-                    //var createObject = Object.Instantiate(prefab, parent);
-                    createObject.gameObject.SetActive(false);
-                    _objects.Add(createObject.GetComponent<T>());
-                }
+            _count = count;
+            for (int i = 0; i < count; i++)
+            {
+                var createObject = _container.InstantiatePrefab(prefab, parent);
+                //var createObject = Object.Instantiate(prefab, parent);
+                createObject.gameObject.SetActive(false);
+                _objects.Add(createObject.GetComponent<T>());
             }
         }
 

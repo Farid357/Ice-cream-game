@@ -9,14 +9,14 @@ namespace IceCream.GameLogic
         [SerializeField] private Transform _spawnPoint;
         private readonly Timer _timer = new(30f);
 
-        private void Awake() => _timer.Start();
+        private void Start() => _timer.Start();
 
         protected override Vector3 GetNextPoint() => _spawnPoint.position;
 
         protected override Present GetPrefab()
         {
             List<float> chances = new();
-            for (int i = 0; i < Prefabs.Length - 1; i++)
+            for (int i = 0; i < Prefabs.Length; i++)
             {
                 chances.Add(Prefabs[i].ChanceCurve.Evaluate(_timer.PassedTime));
             }

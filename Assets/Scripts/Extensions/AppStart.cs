@@ -14,6 +14,7 @@ namespace IceCream.App
         [SerializeField] private AchievementPanel _panel;
         [SerializeField] private IceBagCatcher _catcher;
         [SerializeField] private Score _score;
+        [SerializeField] private ProjectileFactory[] _projectileFactories;
 
         public override void InstallBindings()
         {
@@ -27,6 +28,7 @@ namespace IceCream.App
             Container.BindInstance(_panel).AsSingle();
             Container.BindInstance(_catcher).AsSingle();
             Container.BindInstance(_score).AsSingle();
+            Container.BindInstance(_projectileFactories).AsSingle();
         }
     }
 }
